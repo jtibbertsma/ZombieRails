@@ -3,6 +3,8 @@ require 'active_support/core_ext'
 require 'erb'
 
 require_relative 'session'
+require_relative 'flash'
+require_relative 'params'
 
 class ControllerBase
   attr_reader :req, :res, :params
