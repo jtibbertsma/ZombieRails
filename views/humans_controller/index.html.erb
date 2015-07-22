@@ -1,0 +1,7 @@
+<h1>All the humans!</h1>
+
+<ul>
+  <% @humans.each do |human| %>
+    <li><%= [human.fname, human.lname].join(' ') %></li>
+  <% end %>
+</ul>

@@ -1,6 +1,7 @@
 require 'active_support'
 require 'active_support/core_ext'
 require 'erb'
+require 'tilt/erb'
 
 require_relative 'session'
 require_relative 'params'
@@ -41,13 +42,20 @@ class ControllerBase
     res.body = content
   end
 
+  # main template that yields control to a view
+  def main
+    template = Tilt::ERBTemplate.new('views/main.html.erb')
+  end
+
   # use ERB and binding to evaluate templates
   # pass the rendered html to render_content
   def render(template_name)
-    raw = File.read("views/#{self.class.to_s.underscore}/#{template_name}.html.erb")
-    template = ERB.new(raw)
+    template = Tilt::ERBTemplate.new(
+      "views/#{self.class.to_s.underscore}/#{template_name}.html.erb"
+    )
+    content = main.render(self) { template.render(self) }
 
-    render_content template.result(binding), 'text/html'
+    render_content content, 'text/html'
   end
 
   # method exposing a `Session` object
