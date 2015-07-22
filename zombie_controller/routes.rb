@@ -62,12 +62,13 @@ class Router
   # either throw 404 or call run on a matched route
   def run(req, res)
     route = match(req)
+    byebug
 
     if route.nil?
       res.status = 404
       return res
     end
 
-    route.run
+    route.run(req, res)
   end
 end
