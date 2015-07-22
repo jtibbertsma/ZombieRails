@@ -19,6 +19,8 @@ class Server
       get(/^\/cats$/, CatsController, :index)
       get(/^\/humans$/, HumansController, :index)
       get(/^\/houses$/, HousesController, :index)
+
+      get(/^\/$/, ApplicationController, :index)
     end
 
     @server = WEBrick::HTTPServer.new(Port: 3000)
