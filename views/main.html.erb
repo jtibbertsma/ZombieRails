@@ -6,6 +6,10 @@
 </head>
 
 <body>
+
+<% if flash['notice'] %>
+  <h2>Flash: <%= flash['notice'] %></h2>
+<% end %>
   
 <%= yield %>
 

@@ -21,6 +21,7 @@ class Server
       get(/^\/houses$/, HousesController, :index)
 
       get(/^\/$/, ApplicationController, :index)
+      get(/^\/flash_test$/, ApplicationController, :flash_test)
     end
 
     @server = WEBrick::HTTPServer.new(Port: 3000)

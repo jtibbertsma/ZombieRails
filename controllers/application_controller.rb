@@ -4,4 +4,10 @@ class ApplicationController < ControllerBase
   def index
     render :index
   end
+
+  def flash_test
+    flash[:notice] = "Now we're testing legit flash"
+
+    redirect_to '/cats'
+  end
 end

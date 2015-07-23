@@ -13,6 +13,8 @@ class ControllerBase
   def initialize(req, res, route_params = {})
     @params = Params.new(req, route_params)
     @req, @res = req, res
+
+    flash
   end
 
   # Helper method to alias @already_built_response
@@ -26,6 +28,7 @@ class ControllerBase
     @already_built_response = true
 
     session.store_session(res)
+    flash.store_session(res)
     res.header["location"] = url
     res.status = 302
   end
@@ -38,6 +41,7 @@ class ControllerBase
     @already_built_response = true
 
     session.store_session(res)
+    flash.store_session(res)
     res.content_type = content_type
     res.body = content
   end
@@ -66,5 +70,9 @@ class ControllerBase
   # use this with the router to call action_name (:index, :show, :create...)
   def invoke_action(name)
     send(name)
+  end
+
+  def flash
+    @flash ||= Flash.new(req)
   end
 end
